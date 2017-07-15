@@ -28,21 +28,12 @@ function updateEngagementAvg(){
 	engagementAvg.push(averageEngagement);
 }
 
-function timeStep(){
-	document.getElementById("timestamp").innerHTML = timeStamp;
-	timeStamp++;
-	randomiseEngagement();
-	updateEngagementAvg();
-	updateEngagementIndicator();
-	if(timeStamp<maxClassTime+1){
-		setTimeout(timeStep, 1000);
-	}
-} 
+
 
 //for demo only
 function randomiseEngagement(){
 	for(let i=0; i<classSize; i++){
-		students[i].engagement = Math.floor(5*Math.random());
+		students[i].engagement = Math.floor(5*Math.random()) +1;
 	}
 }
 
@@ -51,3 +42,4 @@ function createStudents(){
 		students.push({id: i, name: "Student " + (i+1), engagement: 1});
 	}
 }
+
