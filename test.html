@@ -15,28 +15,74 @@
 	    
     </div>
     <div id ="footer">
+		<p id="timestamp">Time</p>
     </div>
 	</div>
 	
 	<script>
-		const students = [{id: 1, name: "Student 1", engagement: [2,2,1,0]}, 
-							{id: 2, name: "Student 2", engagement: [4,3,4,2]}];
+		const students = [{id: "1", name: "Student 1", engagement: 1}, 
+							{id: "2", name: "Student 2", engagement: 5}];
 		const engagementColours = ["#e60000",  "#ff6600", "#ffcc00", "#99ff66", "#009933"];
+		
+		const classSize = students.length;
+		let timeStamp = 0;
+		
+		//for demo only
+		function randomiseEngagement(){
+			for(let i=0; i<classSize; i++){
+				students[i].engagement = Math.floor(5*Math.random());
+			}
+		}
+		randomiseEngagement();
 		
 		function displayClass(){
 		//provides visualisation for the students in the class.
-			const classsize = students.length;
-			for(let i=0; i<classsize; i++){
+			for(let i=0; i<classSize; i++){
 				var button = document.createElement("button");
 				button.setAttribute("id", students[i].id);
 				var body = document.getElementById("sidebar");
-				button.style.backgroundColor = engagementColours[students[i].engagement[0]];
+				button.style.backgroundColor = engagementColours[students[i].engagement-1];
 				button.innerHTML = students[i].name;
 				body.appendChild(button);
+				
 				}
 
 		}
 		displayClass();
+		
+				
+		function updateEngagementIndicator(){
+			for(let i=0; i<classSize; i++){
+				let button = document.getElementById(students[i].id);
+				button.style.backgroundColor = engagementColours[students[i].engagement-1];
+			}
+		}
+		updateEngagementIndicator();
+		
+		//do this every second
+		let engagementAvg = [];
+		function updateEngagementAvg(){
+			let workingTotal = 0;
+			for(let i = 0; i<classSize; i++){
+				workingTotal+=students[i].engagement;
+			}
+			const averageEngagement = workingTotal/classSize;
+			engagementAvg.push(averageEngagement);
+			//document.getElementById("currentengagement").innerHTML="<h2>Current Average Engagement: " + averageEngagement + "</h2>";
+		} 
+		updateEngagementAvg();
+		
+		function timeStep(){
+			document.getElementById("timestamp").innerHTML = timeStamp;
+			timeStamp++;
+			randomiseEngagement();
+			updateEngagementAvg();
+			updateEngagementIndicator();
+			if(timeStamp<11){
+				setTimeout(timeStep, 1000);
+			}
+		}
+		timeStep();
 
 	//this is the dataset - needs to be fed from a database
 		var data = [ { label: "Average Engagement", 
