@@ -7,7 +7,7 @@
 <body>
     <div id ="container">
    <div id ="header">
-        <h1>Live Engagement</h1>
+        <h1>Live Engagement - Maths Year 7</h1>
     </div>
     <div id ="sidebar">
     </div>
@@ -17,6 +17,19 @@
     <div id ="footer">
     </div>
 	</div>
+	
+	<script>
+		const classsize = 9;
+		for(let i=0; i<classsize; i++){
+			var button = document.createElement("button");
+			button.setAttribute("id", "Student " + (i+1));
+			var body = document.getElementById("sidebar");
+			body.appendChild(button);
+
+		}
+	</script>
+	
+	
     <script type="text/javascript">
 	//this is the dataset - needs to be fed from a database
 		var data = [ { label: "Average Engagement", 
