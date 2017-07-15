@@ -19,11 +19,15 @@
 	</div>
 	
 	<script>
-		const classsize = 9;
+		const students = [{id: 1, name: "Student 1", engagement: [2,2,1,0]}, {id: 2, name: "Student 2", engagement: [4,3,4,2]}];
+		const engagementColours = ["#e60000",  "#ff6600", "#ffcc00", "#99ff66", "#009933"];
+		const classsize = students.length;
 		for(let i=0; i<classsize; i++){
 			var button = document.createElement("button");
-			button.setAttribute("id", "Student " + (i+1));
+			button.setAttribute("id", students[i].id);
 			var body = document.getElementById("sidebar");
+			button.style.backgroundColor = engagementColours[students[i].engagement[0]];
+			button.innerHTML = students[i].name;
 			body.appendChild(button);
 
 		}
