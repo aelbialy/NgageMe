@@ -46,3 +46,9 @@ document.getElementById('5-score').addEventListener('click',function(){
     user1DataRef.update({name: userName, engagement: 5});
 });
 
+document.getElementById('absentButton').addEventListener('click',function(){
+    var userID = document.getElementById('userID').value;
+    var userName = document.getElementById('name').value;
+    var user1DataRef = firebase.database().ref(userID +'/');
+    user1DataRef.update({name: userName, engagement: 0});
+});
