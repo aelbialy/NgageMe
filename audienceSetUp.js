@@ -12,6 +12,44 @@ function displayClass(){
 
 }
 
+function chartMe() {
+		timeAxis = [];
+		generateTimeAxis();
+		let avgDataPoints = [];
+		
+		for(let i = 0; i<timeAxis.length; i++){
+			avgDataPoints.push({x: i+1, y:engagementAvg[i]?engagementAvg[i]:null});
+		}
+    var chart = new CanvasJS.Chart("content",
+    {
+      theme: "theme9",
+      title:{
+        text: ""
+      },
+      axisX: {
+        interval:maxClassTime/10,
+		maximum:maxClassTime,
+		includeZero:true
+      },
+      axisY:{
+        includeZero: false,
+		maximum: 5,
+		minimum: 1,
+        interval:1
+      },
+      data: [
+      {        
+        type: "spline", 
+		color: 	"#1abc9c",
+		markerType: "none",
+        dataPoints: avgDataPoints
+      }
+      ]	
+    });
+
+	chart.render();
+}
+
 function updateEngagementIndicator(){
 			for(let i=0; i<classSize; i++){
 				let button = document.getElementById(students[i].id);
@@ -43,54 +81,20 @@ function randomiseEngagement(){
 	for(let i=0; i<classSize; i++){
 		students[i].engagement = Math.floor(6*Math.random());
 	}
+	chartMe();
 }
 
 function createStudents(){
 	for(let i = 0; i<15; i++){
 		students.push({id: i, name: "Student " + (i+1), engagement: 0});
 	}
+	
 }
 
 function generateTimeAxis(){
-			for(let i = 0; i<31; i++){
+			for(let i = 0; i<(maxClassTime+1); i++){
 				timeAxis.push(i);
 			}
 }
 
-function chartMe() {
-		timeAxis = [];
-		generateTimeAxis();
-		let avgDataPoints = [];
-		
-		for(let i = 0; i<timeAxis.length; i++){
-			avgDataPoints.push({x: i+1, y:engagementAvg[i]?engagementAvg[i]:null});
-		}
-    var chart = new CanvasJS.Chart("content",
-    {
-      theme: "theme9",
-      title:{
-        text: ""
-      },
-      axisX: {
-        interval:3,
-		includeZero:true
-      },
-      axisY:{
-        includeZero: false,
-		maximum: 5,
-		minimum: 1,
-        interval:1
-      },
-      data: [
-      {        
-        type: "spline", 
-		color: 	"#1abc9c",
-		markerType: "none",
-        dataPoints: avgDataPoints
-      }
-      ]	
-    });
-
-	chart.render();
-}
 

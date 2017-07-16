@@ -35,7 +35,7 @@
 		const engagementColours = ["grey", "#dd2c00",  "#ffa726", "#ffeb3b", "#b2ff59", "#64dd17"];
 		
 		const classSize = students.length;
-		const maxClassTime = 30;
+		const maxClassTime = 120;
 		
 		let timeStamp = 0;
 		displayClass();
@@ -62,12 +62,13 @@
 chartMe();
 
 	function timeStep(){
+	
+	chartMe();
 	timeStamp++;
 	randomiseEngagement();
 	updateEngagementAvg();
 	updateEngagementIndicator();
 	chartMe();
-
 	if(timeStamp<maxClassTime+1){
 		setTimeout(timeStep, 1000);
 	}
