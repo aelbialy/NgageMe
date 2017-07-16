@@ -46,10 +46,12 @@ function chartMe() {
       axisX: {
         interval:maxClassTime/10,
 		maximum:maxClassTime,
-		includeZero:true
+		includeZero:true,
+		title: "Time"
       },
       axisY:{
         includeZero: false,
+		title: "Engagement",
 		maximum: 5,
 		minimum: 1,
         interval:1
