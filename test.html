@@ -2,7 +2,9 @@
 <html>
 <head>
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
-	 <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="audienceSetUp.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
     <div id ="container">
@@ -10,27 +12,56 @@
         <h1>Live Engagement - Maths Year 7</h1>
     </div>
     <div id ="sidebar">
+		<div id="audienceIndicator">
+		</div>
     </div>
 	<div id ="content">
-	    
+
     </div>
     <div id ="footer">
+		<p id="timestamp">Time</p>
     </div>
 	</div>
 	
 	<script>
-		const classsize = 9;
-		for(let i=0; i<classsize; i++){
-			var button = document.createElement("button");
-			button.setAttribute("id", "Student " + (i+1));
-			var body = document.getElementById("sidebar");
-			body.appendChild(button);
+		const students = [];
+							
 
+		createStudents();
+		
+		const engagementColours = ["#e60000",  "#ff6600", "#ffcc00", "#99ff66", "#009933"];
+		
+		const classSize = students.length;
+		const maxClassTime = 30;
+		
+		let timeStamp = 0;
+		
+
+		randomiseEngagement();
+		
+		
+		displayClass();
+		
+				
+		
+		updateEngagementIndicator();
+		
+		//do this every second
+		let engagementAvg = [];
+
+		updateEngagementAvg();
+		
+
+		timeStep();
+		let axis = [];
+		
+		function generateTimeAxis(){
+			for(let i = 0; i<maxClassTime; i++){
+				axis.push(i+1);
+			}
+			return axis;
 		}
-	</script>
-	
-	
-    <script type="text/javascript">
+
 	//this is the dataset - needs to be fed from a database
 		var data = [ { label: "Average Engagement", 
 		//x is time, y is engagment
@@ -183,6 +214,21 @@
 
     return chart;
 }
+
+
+chartMe();
+
+	function timeStep(){
+	document.getElementById("timestamp").innerHTML = timeStamp;
+	timeStamp++;
+	randomiseEngagement();
+	updateEngagementAvg();
+	updateEngagementIndicator();
+	chartMe();
+	if(timeStamp<maxClassTime+1){
+		setTimeout(timeStep, 1000);
+	}
+} 
     </script>
 </body>
 </html>
