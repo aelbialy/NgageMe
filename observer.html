@@ -4,41 +4,73 @@
     <meta charset="UTF-8">
     <title>Observer View</title>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'>//JQuery </script>
-     
+    <style>
+		@media screen and (max-width: 1020px) {
+	  #container, #header, #content, #footer, #buttons {
+		float: none;
+		width: auto;
+	  }
+	}
+
+	#buttons button {
+		border: 1px solid white;
+		color: black; 
+		padding: 10px 24px;
+		width: 100%;
+		display: block; /* Make the buttons appear below each other */
+}
+	</style>
+	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+<script src="updateDB.js"></script>
+
   </head>
     <body>
-<label>User ID:</label><input id="userID" type="text"> 
+	
+<label>User ID:</label><input id="userID" type="text" required> 
 <br>
 <label>Student's Name:</label><input id="name" type="text"> 
 <br>
-<label>Engagement score:</label>
-<div id="buttons" style="width: 160px">
+<div>
+	<button id="submitName" onclick=createButtons()>Submit</button>
+</div>
+<label id="Engagement"></label>
+<div id="buttons" style="width: 160px, display:block">
 
 </div>
-<div id="absent">
-</div>
+
 <script>
 	const engagementColours = ["light-grey", "#dd2c00",  "#ffa726", "#ffeb3b", "#b2ff59", "#64dd17"];
-	let position = document.getElementById("buttons");
-	for(let i = 0; i<5; i++){
-		let button = document.createElement("button");
-		button.setAttribute("id", (i+1) + "-score");
-		button.style.backgroundColor = engagementColours[i+1];
-		button.innerHTML = (i+1);
-		position.appendChild(button);
+	
+	function createButtons(){
+		document.getElementById("Engagement").innerHTML = "Engagement score:";
+		let position = document.getElementById("buttons");
+		for(let i = 0; i<5; i++){
+			let button = document.createElement("button");
+			button.setAttribute("id", (i+1) + "-score");
+			button.style.backgroundColor = engagementColours[i+1];
+			button.innerHTML = (i+1);
+			position.appendChild(button);
+		}
+		
+		let absentButton = document.createElement("button");
+		
+		absentButton.innerHTML = "Absent";
+		absentButton.setAttribute("id", "absentButton");
+		absentButton.style.backgroundColor = engagementColours[0];
+		position.appendChild(absentButton);
+		init();
+		removeSelect();
 	}
 	
-	let absentButton = document.createElement("button");
-	position = document.getElementById("absent");
-	absentButton.innerHTML = "Absent";
-	absentButton.setAttribute("id", "absentButton");
-	absentButton.style.backgroundColor = engagementColours[0];
-	position.appendChild(absentButton);
-	absentButton.style.width = "117px";
+	function removeSelect(){
+		let selectButton = document.getElementById("submitName");
+		selectButton.style.display = "none";
+		document.getElementById("userID").disabled = true;
+		document.getElementById("name").disabled = true;
+	}
+	
 	
 </script>
-<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-<script src="updateDB.js"></script>
 
   </body>
 </html>
