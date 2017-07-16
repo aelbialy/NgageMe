@@ -4,7 +4,7 @@ function displayClass(){
 				var button = document.createElement("button");
 				button.setAttribute("id", students[i].id);
 				var body = document.getElementById("audienceIndicator");
-				button.style.backgroundColor = engagementColours[students[i].engagement-1];
+				button.style.backgroundColor = engagementColours[students[i].engagement];
 				button.innerHTML = students[i].name;
 				body.appendChild(button);
 				
@@ -15,42 +15,42 @@ function displayClass(){
 function updateEngagementIndicator(){
 			for(let i=0; i<classSize; i++){
 				let button = document.getElementById(students[i].id);
-				button.style.backgroundColor = engagementColours[students[i].engagement-1];
+				button.style.backgroundColor = engagementColours[students[i].engagement];
+			}
+			for(let i=0; i<classSize; i++){
+				students[i].engagement = 0;
 			}
 }
 
 function updateEngagementAvg(){
 	let workingTotal = 0;
+	let nonAbsent = 0;
 	for(let i = 0; i<classSize; i++){
-		workingTotal+=students[i].engagement;
+		let engagement = students[i].engagement;
+		workingTotal+=engagement;
+		if(engagement!=0){
+			nonAbsent++;
+		}
 	}
-	const averageEngagement = workingTotal/classSize;
+	const averageEngagement = workingTotal/nonAbsent;
 	engagementAvg.push(averageEngagement);
 }
 
-function timeStep(){
-	document.getElementById("timestamp").innerHTML = timeStamp;
-	timeStamp++;
-	randomiseEngagement();
-	updateEngagementAvg();
-	updateEngagementIndicator();
-	if(timeStamp<maxClassTime+1){
-		setTimeout(timeStep, 1000);
-	}
-} 
+
 
 //for demo only
 function randomiseEngagement(){
 	for(let i=0; i<classSize; i++){
-		students[i].engagement = Math.floor(5*Math.random()) + 1;
+		students[i].engagement = Math.floor(6*Math.random());
 	}
 }
 
 function createStudents(){
 	for(let i = 0; i<15; i++){
-		students.push({id: i, name: "Student " + (i+1), engagement: 1});
+		students.push({id: i, name: "Student " + (i+1), engagement: 0});
 	}
 }
+
 function generateTimeAxis(){
 			for(let i = 0; i<31; i++){
 				timeAxis.push(i);
@@ -93,3 +93,4 @@ function chartMe() {
 
 	chart.render();
 }
+
