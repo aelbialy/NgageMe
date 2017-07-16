@@ -12,6 +12,10 @@ h1 {
 #container {
     width:1400px;
 }
+#audienceIndicator{
+	padding-left: 50px;
+	padding-top: 50px;
+}
 #header {
     width:1400px;
     height: 70px;
@@ -30,8 +34,11 @@ h1 {
 #content {
     background-color:#ffffff;
     height:500px;
-    width:800px;
+    width:850px;
+	padding-right: 40px; 
     float:left;
+	border: #1abc9c;
+	border-right-style: solid;
 }
 button{
 	background-color: #4CAF50; /* Green */
