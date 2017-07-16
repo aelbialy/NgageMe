@@ -20,7 +20,6 @@
 
     </div>
     <div id ="footer">
-	<button onclick="updateData()" />
 		<p id="timestamp">Time</p>
 		
     </div>
@@ -32,17 +31,13 @@
 
 		createStudents();
 		
-		const engagementColours = ["#dd2c00",  "#ffa726", "#ffeb3b", "#b2ff59", "#64dd17"];
+		
+		const engagementColours = ["light-grey", "#dd2c00",  "#ffa726", "#ffeb3b", "#b2ff59", "#64dd17"];
 		
 		const classSize = students.length;
 		const maxClassTime = 30;
 		
 		let timeStamp = 0;
-		
-
-		randomiseEngagement();
-		
-		
 		displayClass();
 		
 				
